@@ -16,7 +16,8 @@ screen_width = 600
 screen_height = 800
 screen = pygame.display.set_mode((screen_width, screen_height)) 
 
-clock = pygame.time.Clock() 
+clock = pygame.time.Clock()
+
 
 def runGame():
     
@@ -58,6 +59,8 @@ def runGame():
                     paddle_dx = -5
                 elif event.key == pygame.K_RIGHT:
                     paddle_dx = 5
+                elif event.key  == pygame.K_ESCAPE:
+                    return
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT:
                     paddle_dx = 0
