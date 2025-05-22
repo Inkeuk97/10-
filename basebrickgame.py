@@ -32,6 +32,9 @@ def runGame():
         for row_index in range(ROW_COUNT):
             brick = pygame.Rect(column_index * (60 + 10) + 35, row_index * (16 + 5) + 35, 60, 16)
             bricks.append(brick)      
+    #폭발 블록 관련 변수 
+    explosion_blocks = []
+    last_explosion_spawn_time = time.time()
 
     ball = pygame.Rect(screen_width // 2 - 16 // 2, screen_height // 2 - 16 // 2, 16, 16)
     ball_dx = 5
