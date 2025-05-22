@@ -4,6 +4,8 @@ import time
 
 pygame.init() 
 
+
+
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
@@ -19,7 +21,10 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 
 
+
 def runGame():
+
+    paused = False
     
     #게임 상태 및 변수상태 초기화
     score = 0                   #벽돌 깬 횟수 기록 (게임 점수)
@@ -53,75 +58,80 @@ def runGame():
     #이벤트 처리 (키 입력)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                break
+                return
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     paddle_dx = -5
                 elif event.key == pygame.K_RIGHT:
                     paddle_dx = 5
-                elif event.key  == pygame.K_ESCAPE:
+                elif event.key == pygame.K_ESCAPE:
                     return
+                elif event.key == pygame.K_p:
+                    paused = not paused
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT:
                     paddle_dx = 0
                 elif event.key == pygame.K_RIGHT:
-                    paddle_dx = 0        
-    #객체 위치 업데이트
-        paddle.left += paddle_dx
+                    paddle_dx = 0
 
-        ball.left += ball_dx
-        ball.top  += ball_dy
 
-    #공의 벽 충돌 처리
-        ##공이 좌우 벽에 닿으면 반사 (방향 반전)
-        if ball.left <= 0:
-            ball.left = 0
-            ball_dx = -ball_dx
-        elif ball.left >= screen_width - ball.width: 
-            ball.left = screen_width - ball.width
-            ball_dx = -ball_dx
+        if not paused and game_over == 0:
+        #객체 위치 업데이트
+            paddle.left += paddle_dx
 
-        ##공이 천장에 닿으면 위아래 방향 반전
-        if ball.top < 0:
-            ball.top = 0
-            ball_dy = -ball_dy
+            ball.left += ball_dx
+            ball.top  += ball_dy
 
-        ##공이 화면 아래로 떨어지면 missed += 1 (놓친 횟수 증가)
-        ##공을 다시 중앙에 위치시키고 방향만 반대로
-        elif ball.top >= screen_height:
-            missed += 1
-            ball.left = screen_width // 2 - ball.width // 2
-            ball.top = screen_height // 2 - ball.width // 2
-            ball_dy = -ball_dy 
+        #공의 벽 충돌 처리
+            ##공이 좌우 벽에 닿으면 반사 (방향 반전)
+            if ball.left <= 0:
+                ball.left = 0
+                ball_dx = -ball_dx
+            elif ball.left >= screen_width - ball.width: 
+                ball.left = screen_width - ball.width
+                ball_dx = -ball_dx
 
-    #게임 오버 조건 검사
-        if missed >= 3:
-            game_over = FAILURE                                         #공을 3번 놓치면 게임 실패 처리
+            ##공이 천장에 닿으면 위아래 방향 반전
+            if ball.top < 0:
+                ball.top = 0
+                ball_dy = -ball_dy
 
-    #패들의 화면 경계 제한 (패들이 화면 밖으로 나가지 않게 함)
-        if paddle.left < 0:
-            paddle.left = 0
-        elif paddle.left > screen_width - paddle.width:
-            paddle.left = screen_width - paddle.width
-    
-    #공과 벽돌 충돌 처리
-        for brick in bricks:
-            if ball.colliderect(brick):
-                bricks.remove(brick)                                    #해당 벽돌 제거
-                ball_dy = -ball_dy                                      #공 반사
-                score += 1                                              #점수 1점 증가
-                break
-    
-    #공과 패들 충돌처리
-        if ball.colliderect(paddle):
-            ball_dy = -ball_dy                                                  #공이 패들과 부딪히면 위로 반사
-            if ball.centerx <= paddle.left or ball.centerx > paddle.right:      #만약 공이 패들의 가장자리에 닿았으면 X축 방향도 반사
-                ball_dx = ball_dx * -1
+            ##공이 화면 아래로 떨어지면 missed += 1 (놓친 횟수 증가)
+            ##공을 다시 중앙에 위치시키고 방향만 반대로
+            elif ball.top >= screen_height:
+                missed += 1
+                ball.left = screen_width // 2 - ball.width // 2
+                ball.top = screen_height // 2 - ball.width // 2
+                ball_dy = -ball_dy 
 
-    #게임 성공 조건 (남은 벽돌이 없으면 게임 성공)
-        if len(bricks) == 0:
-            print('success')
-            game_over = SUCCESS
+        #게임 오버 조건 검사
+            if missed >= 3:
+                game_over = FAILURE                                         #공을 3번 놓치면 게임 실패 처리
+
+        #패들의 화면 경계 제한 (패들이 화면 밖으로 나가지 않게 함)
+            if paddle.left < 0:
+                paddle.left = 0
+            elif paddle.left > screen_width - paddle.width:
+                paddle.left = screen_width - paddle.width
+        
+        #공과 벽돌 충돌 처리
+            for brick in bricks:
+                if ball.colliderect(brick):
+                    bricks.remove(brick)                                    #해당 벽돌 제거
+                    ball_dy = -ball_dy                                      #공 반사
+                    score += 1                                              #점수 1점 증가
+                    break
+        
+        #공과 패들 충돌처리
+            if ball.colliderect(paddle):
+                ball_dy = -ball_dy                                                  #공이 패들과 부딪히면 위로 반사
+                if ball.centerx <= paddle.left or ball.centerx > paddle.right:      #만약 공이 패들의 가장자리에 닿았으면 X축 방향도 반사
+                    ball_dx = ball_dx * -1
+
+        #게임 성공 조건 (남은 벽돌이 없으면 게임 성공)
+            if len(bricks) == 0:
+                print('success')
+                game_over = SUCCESS
 
         #화면 그리기
 
@@ -146,6 +156,11 @@ def runGame():
             elif game_over == FAILURE:
                 failure_image = large_font.render('실패', True, RED)
                 screen.blit(failure_image, failure_image.get_rect(centerx=screen_width // 2, centery=screen_height // 2))
+
+
+        if paused:
+            pause_text = large_font.render("PAUSED", True, WHITE)
+            screen.blit(pause_text, pause_text.get_rect(centerx=screen_width // 2, centery=screen_height // 2))
 
         pygame.display.update()
 
