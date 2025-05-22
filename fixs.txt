@@ -1,6 +1,6 @@
-1. Change the FPS
+1. Change the FPS (Done)
 
-2. Function to puase the game and resume as type 'P' key
+2. Function to puase the game and resume as type 'P' key (Done)
 
 3. Instead the MISSED Number, Use the Heart Icon
 
