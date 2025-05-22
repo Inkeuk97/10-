@@ -1,3 +1,8 @@
-1. 프레임 속도 변경
+1. Change the FPS (Done)
 
-2. 스레드로 구현하여 특정 키를 누르면 종료되게 하기
+2. Function to puase the game and resume as type 'P' key (Done)
+
+3. Instead the MISSED Number, Use the Heart Icon
+
+4. Level system
+	If all bricks clear, load new blricks with higher speed ball and smaller paddle
