@@ -46,7 +46,7 @@ def runGame():
 
     #메인루프 시작
     while True: 
-        delta_time = clock.tick(60) / 1000                                                                  #FPS 30으로 설정 : 게임속도 고정
+        delta_time = clock.tick(30)                                                                         #FPS 30으로 설정 : 게임속도 고정
         screen.fill(BLACK)                                                                                  #이전 프레임의 내용을 지우고 새로 그림
 
     #이벤트 처리 (키 입력)
@@ -66,8 +66,8 @@ def runGame():
     #객체 위치 업데이트
         paddle.left += paddle_dx
 
-        ball.left += ball_dx * delta_time
-        ball.top  += ball_dy * delta_time
+        ball.left += ball_dx
+        ball.top  += ball_dy
 
     #공의 벽 충돌 처리
         ##공이 좌우 벽에 닿으면 반사 (방향 반전)
