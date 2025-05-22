@@ -39,26 +39,6 @@ def runGame():
 
     paddle = pygame.Rect(screen_width // 2 - 80 // 2, screen_height - 16, 80, 16)
     paddle_dx = 0
-    
-    bomb_blocks = []  # 폭탄 블록 리스트
-    BOMB_SIZE = 24
-    last_bomb_time = pygame.time.get_ticks()
-    BOMB_INTERVAL = 10000  # 10초마다 폭탄 생성
-
-    def explode_bomb(bomb):
-        nonlocal bricks, score
-        # 폭탄 주변에 있는 블록들을 제거
-        explosion_radius = BOMB_SIZE * 2  # 폭탄 영향 범위
-        destroyed = []
-        for brick in bricks:
-            # 폭탄 중심과 블록 중심 사이 거리 체크
-            dist_x = abs(bomb.centerx - brick.centerx)
-            dist_y = abs(bomb.centery - brick.centery)
-            if dist_x <= explosion_radius and dist_y <= explosion_radius:
-                destroyed.append(brick)
-        for d in destroyed:
-            bricks.remove(d)
-            score += 1
 
     while True: 
         clock.tick(30)
@@ -113,17 +93,6 @@ def runGame():
                 score += 1
                 break
 
-        # 폭탄 블록과 충돌
-        bomb_to_remove = None
-        for bomb in bomb_blocks:
-            if ball.colliderect(bomb):
-                bomb_to_remove = bomb
-                ball_dy = -ball_dy
-                explode_bomb(bomb)
-                break
-        if bomb_to_remove:
-            bomb_blocks.remove(bomb_to_remove)
-
         if ball.colliderect(paddle):
             ball_dy = -ball_dy
             if ball.centerx <= paddle.left or ball.centerx > paddle.right:
@@ -161,4 +130,3 @@ def runGame():
 
 runGame()
 pygame.quit()
-
