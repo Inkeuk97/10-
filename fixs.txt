@@ -1,8 +1,0 @@
-1. Change the FPS (Done)
-
-2. Function to puase the game and resume as type 'P' key (Done)
-
-3. Instead the MISSED Number, Use the Heart Icon
-
-4. Level system
-	If all bricks clear, load new blricks with higher speed ball and smaller paddle
