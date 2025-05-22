@@ -46,6 +46,14 @@ def runGame():
     while True: 
         clock.tick(30)
         screen.fill(BLACK) 
+        #15초마다 폭발 블록 생성
+        current_time = time.time()
+        if current_time - last_explosion_spawn_time >= 15:
+            if bricks:  
+                target_brick = random.choice(bricks)
+                explosion_blocks.append(target_brick)
+                bricks.remove(target_brick)
+                last_explosion_spawn_time = current_time
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -95,7 +103,25 @@ def runGame():
                 ball_dy = -ball_dy
                 score += 1
                 break
+        #폭발 블록 충돌
+        for explosion in explosion_blocks:
+            if ball.colliderect(explosion):
+                explosion_blocks.remove(explosion)
+                ball_dy = -ball_dy
+                score += 1
 
+                explosion_center = explosion.center
+                to_remove = []
+
+                for b in bricks:
+                    if abs(b.centerx - explosion_center[0]) <= 70 and abs(b.centery - explosion_center[1]) <= 25:
+                        to_remove.append(b)
+
+                for b in to_remove:
+                    bricks.remove(b)
+                    score += 1
+
+                break
         if ball.colliderect(paddle):
             ball_dy = -ball_dy
             if ball.centerx <= paddle.left or ball.centerx > paddle.right:
