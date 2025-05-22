@@ -44,15 +44,15 @@ def runGame():
 
     #공과 패들 초기 설정
     ball = pygame.Rect(screen_width // 2 - 16 // 2, screen_height // 2 - 16 // 2, 16, 16)                   #공 크기 :16 * 16, 화면 정 중앙에 위치
-    ball_dx = 5                                                                                             #ball_dx : 공 x축 속도
-    ball_dy = -5                                                                                            #ball_dy : 공 y축 속도
+    ball_dx = 3                                                                                             #ball_dx : 공 x축 속도
+    ball_dy = -3                                                                                            #ball_dy : 공 y축 속도
 
     paddle = pygame.Rect(screen_width // 2 - 80 // 2, screen_height - 16, 80, 16)                           #패들 크기 : 80 * 16 / 화면 아래쪽에 위치 시킴
     paddle_dx = 0                                                                                           #패들 좌우 이동속도 (키 입력에 따라 변경)
 
     #메인루프 시작
     while True: 
-        delta_time = clock.tick(30)                                                                         #FPS 30으로 설정 : 게임속도 고정
+        delta_time = clock.tick(100)                                                                         #FPS 60으로 설정 : 게임속도 고정
         screen.fill(BLACK)                                                                                  #이전 프레임의 내용을 지우고 새로 그림
 
     #이벤트 처리 (키 입력)
