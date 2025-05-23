@@ -22,3 +22,5 @@
 11. Function to terminate the game as type 'ESC' key (Done)
 
 12. It need more time between the switching each levels
+
+13. Make Level up score flexible (as level up, increasing variable)
