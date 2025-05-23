@@ -25,7 +25,6 @@ clock = pygame.time.Clock()
 def runGame():
 
     Level = 1
-    Level_up_score = 24
 
     paused = False
     
@@ -50,12 +49,12 @@ def runGame():
     ball_dx = 3.0                                                                                             #ball_dx : 공 x축 속도
     ball_dy = -3.0                                                                                            #ball_dy : 공 y축 속도
 
-    paddle = pygame.Rect(screen_width // 2 - 80 // 2, screen_height - 16, 100, 16)                           #패들 크기 : 80 * 16 / 화면 아래쪽에 위치 시킴
+    paddle = pygame.Rect(screen_width // 2 - 80 // 2, screen_height - 16, 100, 16)                          #패들 크기 : 80 * 16 / 화면 아래쪽에 위치 시킴
     paddle_dx = 0                                                                                           #패들 좌우 이동속도 (키 입력에 따라 변경)
 
     #메인루프 시작
     while True: 
-        delta_time = clock.tick(100)                                                                         #FPS 60으로 설정 : 게임속도 고정
+        delta_time = clock.tick(100)                                                                        #FPS 60으로 설정 : 게임속도 고정
         screen.fill(BLACK)                                                                                  #이전 프레임의 내용을 지우고 새로 그림
 
     #이벤트 처리 (키 입력)
@@ -109,7 +108,7 @@ def runGame():
 
         #게임 오버 조건 검사
             if Life <= 0:
-                game_over = FAILURE                                         #공을 3번 놓치면 게임 실패 처리
+                game_over = FAILURE                                                                         #공을 3번 놓치면 게임 실패 처리
 
         #패들의 화면 경계 제한 (패들이 화면 밖으로 나가지 않게 함)
             if paddle.left < 0:
@@ -120,15 +119,15 @@ def runGame():
         #공과 벽돌 충돌 처리
             for brick in bricks:
                 if ball.colliderect(brick):
-                    bricks.remove(brick)                                    #해당 벽돌 제거
-                    ball_dy = -ball_dy                                      #공 반사
-                    score += 1                                              #점수 1점 증가
+                    bricks.remove(brick)                                                                    #해당 벽돌 제거
+                    ball_dy = -ball_dy                                                                      #공 반사
+                    score += 1                                                                              #점수 1점 증가
 
 
         #공과 패들 충돌처리
             if ball.colliderect(paddle):
-                ball_dy = -ball_dy                                                  #공이 패들과 부딪히면 위로 반사
-                if ball.centerx <= paddle.left or ball.centerx > paddle.right:      #만약 공이 패들의 가장자리에 닿았으면 X축 방향도 반사
+                ball_dy = -ball_dy                                                                          #공이 패들과 부딪히면 위로 반사
+                if ball.centerx <= paddle.left or ball.centerx > paddle.right:                              #만약 공이 패들의 가장자리에 닿았으면 X축 방향도 반사
                     ball_dx = ball_dx * -1
 
         #레벨 클리어 조건 (남은 벽돌이 없으면 클리어)
@@ -154,8 +153,8 @@ def runGame():
                 ball.top = screen_height // 2 - ball.height // 2
                 ball_dy = -abs(ball_dy)
 
-        #화면 그리기
 
+        #화면 그리기
         for brick in bricks:
             pygame.draw.rect(screen, GREEN, brick)
 
