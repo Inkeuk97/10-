@@ -26,3 +26,20 @@
 13. Make Level up score flexible (as level up, increasing variable)
 
 14. Debug lagging when the game is started
+
+15. Add Effect text and sound  when 'Level Up'
+
+16. Add effect sound when bricks are broken
+
+17. Instead of Infinite game, add 'Game Clear' condition
+	If player clear Level 3, the game end with the message like 'You win'
+
+18. Add background sound
+
+19. Add brick image
+
+20. Add ball image
+
+21. Add paddle image
+
+22. Add background image
