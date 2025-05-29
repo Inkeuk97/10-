@@ -2,7 +2,7 @@
 
 2. Function to puase the game and resume as type 'P' key (Done)
 
-3. Instead the MISSED Number, Use the Heart Icon
+3. Instead the Life Number, Use the Heart Icon
 
 4. Level system (Done)
 	If all bricks clear, load new increased blricks with higher speed ball
@@ -24,3 +24,5 @@
 12. It need more time between the switching each levels
 
 13. Make Level up score flexible (as level up, increasing variable)
+
+14. Debug lagging when the game is started
