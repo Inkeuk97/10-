@@ -46,15 +46,15 @@ def runGame():
 
     #공과 패들 초기 설정
     ball = pygame.Rect(screen_width // 2 - 16 // 2, screen_height // 2 - 16 // 2, 16, 16)                   #공 크기 :16 * 16, 화면 정 중앙에 위치
-    ball_dx = 3.0                                                                                             #ball_dx : 공 x축 속도
-    ball_dy = -3.0                                                                                            #ball_dy : 공 y축 속도
+    ball_dx = 5.0                                                                                             #ball_dx : 공 x축 속도
+    ball_dy = -5.0                                                                                            #ball_dy : 공 y축 속도
 
     paddle = pygame.Rect(screen_width // 2 - 80 // 2, screen_height - 16, 100, 16)                          #패들 크기 : 80 * 16 / 화면 아래쪽에 위치 시킴
     paddle_dx = 0                                                                                           #패들 좌우 이동속도 (키 입력에 따라 변경)
 
     #메인루프 시작
     while True: 
-        delta_time = clock.tick(100)                                                                        #FPS 60으로 설정 : 게임속도 고정
+        delta_time = clock.tick(60) / 10000                                                                       #FPS 60으로 설정 : 게임속도 고정
         screen.fill(BLACK)                                                                                  #이전 프레임의 내용을 지우고 새로 그림
 
     #이벤트 처리 (키 입력)
@@ -125,10 +125,12 @@ def runGame():
 
 
         #공과 패들 충돌처리
-            if ball.colliderect(paddle):
-                ball_dy = -ball_dy                                                                          #공이 패들과 부딪히면 위로 반사
-                if ball.centerx <= paddle.left or ball.centerx > paddle.right:                              #만약 공이 패들의 가장자리에 닿았으면 X축 방향도 반사
-                    ball_dx = ball_dx * -1
+
+        if ball.colliderect(paddle):
+            ball_dy = -ball_dy                                                                          #공이 패들과 부딪히면 위로 반사
+            if ball.centerx <= paddle.left or ball.centerx > paddle.right:                              #만약 공이 패들의 가장자리에 닿았으면 X축 방향도 반사
+                ball_dx = ball_dx * -1 
+
 
         #레벨 클리어 조건 (남은 벽돌이 없으면 클리어)
             if len(bricks) == 0:
