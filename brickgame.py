@@ -136,8 +136,8 @@ def runGame():
             if len(bricks) == 0:
                 Level += 1
                 Life += 1
-                ball_dx = float(ball_dx * 1.3) if ball_dx > 0 else float(ball_dx * 1.3)
-                ball_dy = float(ball_dy * 1.3) if ball_dy > 0 else float(ball_dy * 1.3)
+                ball_dx = float(ball_dx * 1.2) if ball_dx > 0 else float(ball_dx * 1.2)
+                ball_dy = float(ball_dy * 1.2) if ball_dy > 0 else float(ball_dy * 1.2)
 
                 bricks = []
                 COLUMN_COUNT = 8
@@ -154,6 +154,9 @@ def runGame():
                 ball.left = screen_width // 2 - ball.width // 2
                 ball.top = screen_height // 2 - ball.height // 2
                 ball_dy = -abs(ball_dy)
+
+                if Level > 3:
+                    game_over = SUCCESS
 
 
         #화면 그리기
@@ -177,6 +180,11 @@ def runGame():
         if game_over == FAILURE:
             failure_image = large_font.render('Game Over', True, RED)
             screen.blit(failure_image, failure_image.get_rect(centerx=screen_width // 2, centery=screen_height // 2))
+
+        if game_over == SUCCESS:
+            success_image = large_font.render('You win!', True, BLUE)
+            screen.blit(success_image, success_image.get_rect(centerx=screen_width // 2, centery=screen_height // 2))
+
 
         if paused:
             pause_text = large_font.render("PAUSED", True, WHITE)
