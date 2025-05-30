@@ -13,7 +13,7 @@
 
 7. Reduce  the Initial number of briks (Done)
 
-8. If player cleared each level, Life increase 1
+8. If player cleared each level, Life increase 1 (Done)
 
 9. Modify initial location of bricks (Done)
 
@@ -25,13 +25,13 @@
 
 13. Make Level up score flexible (as level up, increasing variable)
 
-14. Debug lagging when the game is started
+14. Debug lagging when the game is started (Done)
 
 15. Add Effect text and sound  when 'Level Up'
 
 16. Add effect sound when bricks are broken
 
-17. Instead of Infinite game, add 'Game Clear' condition
+17. Instead of Infinite game, add 'Game Clear' condition (Done)
 	If player clear Level 3, the game end with the message like 'You win'
 
 18. Add background sound
