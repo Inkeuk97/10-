@@ -1,8 +1,20 @@
 import pygame
 import random
 import time
+import pygame.mixer
 
 pygame.init() 
+pygame.mixer.init()  # 음악 시스템 초기화
+
+# 음악 로딩 및 재생
+pygame.mixer.music.load("arcade-music.wav")  # 같은 폴더에 있는 파일
+pygame.mixer.music.play(-1)  # 무한 반복 재생
+pygame.mixer.music.set_volume(0.1)  # 0.0 ~ 1.0 볼륨조절
+
+# 효과음 로딩
+hit_sound = pygame.mixer.Sound("bounce-paddle.ogg")
+hit_sound.set_volume(0.2)  # 볼륨 조절 (0.0 ~ 1.0)
+
 
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
@@ -18,7 +30,31 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 clock = pygame.time.Clock() 
 
+# 시작 화면 출력
+def show_start_screen():
+    screen.fill(BLACK)
+    title = large_font.render('break out!', True, YELLOW)
+    instruction = small_font.render('click space bar', True, WHITE)
+    
+    screen.blit(title, title.get_rect(centerx=screen_width // 2, centery=screen_height // 2 - 50))
+    screen.blit(instruction, instruction.get_rect(centerx=screen_width // 2, centery=screen_height // 2 + 20))
+    
+    pygame.display.update()
+
+    waiting = True
+    while waiting:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    waiting = False
+
 def runGame():
+    
+    show_start_screen()
+    
     score = 0
     missed = 0
     SUCCESS = 1
@@ -95,6 +131,7 @@ def runGame():
 
         if ball.colliderect(paddle):
             ball_dy = -ball_dy
+            hit_sound.play()  # 🔊 패들과 충돌 시 효과음
             if ball.centerx <= paddle.left or ball.centerx > paddle.right:
                 ball_dx = ball_dx * -1
 
